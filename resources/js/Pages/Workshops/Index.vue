@@ -27,8 +27,8 @@ const destroyWorkshop = (id) => {
                 </Link>
             </div>
 
-            <div v-if="page.props.flash.success" class="mb-4 text-green-600 font-medium">
-                {{ page.props.flash.success }}
+            <div v-if="$page.props.flash && $page.props.flash.success">
+                {{ $page.props.flash.success }}
             </div>
 
             <div class="overflow-x-auto">
