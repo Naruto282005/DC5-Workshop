@@ -71,7 +71,7 @@ onMounted(async () => {
             </div>
 
             <div class="bg-white shadow rounded-xl p-6">
-                <h2 class="text-3xl font-bold mb-4">Workshop List from Public API (Axios)</h2>
+                <h2 class="text-3xl font-bold mb-4">Workshop List</h2>
 
                 <div v-if="loading" class="text-gray-500">
                     Loading workshops...

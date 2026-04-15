@@ -7,21 +7,23 @@ const props = defineProps({
 })
 
 const form = useForm({
-    first_name: props.participant.first_name,
-    last_name: props.participant.last_name,
-    email: props.participant.email,
-    phone: props.participant.phone,
+    first_name: props.participant.first_name ?? '',
+    last_name: props.participant.last_name ?? '',
+    email: props.participant.email ?? '',
+    phone: props.participant.phone ?? '',
     organization: props.participant.organization ?? '',
     position: props.participant.position ?? '',
 })
 
 const submit = () => {
-    form.put(route('participants.update', props.participant.id))
+    form.transform((data) => ({
+        ...data,
+        _method: 'put',
+    })).post(`/participants/${props.participant.id}`)
 }
 </script>
 
 <template>
-
     <Head title="Edit Participant" />
 
     <AuthenticatedLayout>
@@ -31,37 +33,57 @@ const submit = () => {
             <form @submit.prevent="submit" class="space-y-4">
                 <div class="grid md:grid-cols-2 gap-4">
                     <div>
-                        <input v-model="form.first_name" type="text" placeholder="First Name"
-                            class="w-full border rounded px-3 py-2" />
-                        <div v-if="form.errors.first_name" class="text-red-600 text-sm">{{ form.errors.first_name }}
-                        </div>
+                        <label class="block mb-1">First Name</label>
+                        <input v-model="form.first_name" type="text" class="w-full border rounded px-3 py-2" />
+                        <div v-if="form.errors.first_name" class="text-red-500 text-sm">{{ form.errors.first_name }}</div>
                     </div>
 
                     <div>
-                        <input v-model="form.last_name" type="text" placeholder="Last Name"
-                            class="w-full border rounded px-3 py-2" />
-                        <div v-if="form.errors.last_name" class="text-red-600 text-sm">{{ form.errors.last_name }}</div>
+                        <label class="block mb-1">Last Name</label>
+                        <input v-model="form.last_name" type="text" class="w-full border rounded px-3 py-2" />
+                        <div v-if="form.errors.last_name" class="text-red-500 text-sm">{{ form.errors.last_name }}</div>
                     </div>
                 </div>
 
-                <input v-model="form.email" type="email" placeholder="Email" class="w-full border rounded px-3 py-2" />
-                <div v-if="form.errors.email" class="text-red-600 text-sm">{{ form.errors.email }}</div>
+                <div>
+                    <label class="block mb-1">Email</label>
+                    <input v-model="form.email" type="email" class="w-full border rounded px-3 py-2" />
+                    <div v-if="form.errors.email" class="text-red-500 text-sm">{{ form.errors.email }}</div>
+                </div>
 
-                <input v-model="form.phone" type="text" placeholder="Phone" class="w-full border rounded px-3 py-2" />
-                <div v-if="form.errors.phone" class="text-red-600 text-sm">{{ form.errors.phone }}</div>
+                <div>
+                    <label class="block mb-1">Phone</label>
+                    <input v-model="form.phone" type="text" class="w-full border rounded px-3 py-2" />
+                    <div v-if="form.errors.phone" class="text-red-500 text-sm">{{ form.errors.phone }}</div>
+                </div>
 
-                <input v-model="form.organization" type="text" placeholder="Organization"
-                    class="w-full border rounded px-3 py-2" />
-                <div v-if="form.errors.organization" class="text-red-600 text-sm">{{ form.errors.organization }}</div>
+                <div>
+                    <label class="block mb-1">Organization</label>
+                    <input v-model="form.organization" type="text" class="w-full border rounded px-3 py-2" />
+                    <div v-if="form.errors.organization" class="text-red-500 text-sm">{{ form.errors.organization }}</div>
+                </div>
 
-                <input v-model="form.position" type="text" placeholder="Position"
-                    class="w-full border rounded px-3 py-2" />
-                <div v-if="form.errors.position" class="text-red-600 text-sm">{{ form.errors.position }}</div>
+                <div>
+                    <label class="block mb-1">Position</label>
+                    <input v-model="form.position" type="text" class="w-full border rounded px-3 py-2" />
+                    <div v-if="form.errors.position" class="text-red-500 text-sm">{{ form.errors.position }}</div>
+                </div>
 
-                <div class="flex gap-3">
-                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded"
-                        :disabled="form.processing">Update</button>
-                    <Link :href="route('participants.index')" class="bg-gray-200 px-4 py-2 rounded">Cancel</Link>
+                <div class="flex gap-2">
+                    <button
+                        type="submit"
+                        :disabled="form.processing"
+                        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                    >
+                        Update Participant
+                    </button>
+
+                    <Link
+                        href="/participants"
+                        class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+                    >
+                        Cancel
+                    </Link>
                 </div>
             </form>
         </div>
