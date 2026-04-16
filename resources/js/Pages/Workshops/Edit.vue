@@ -24,7 +24,6 @@ const submit = () => {
 </script>
 
 <template>
-
     <Head title="Edit Workshop" />
 
     <AuthenticatedLayout>
@@ -35,12 +34,10 @@ const submit = () => {
                 <input v-model="form.title" type="text" placeholder="Title" class="w-full border rounded px-3 py-2" />
                 <div v-if="form.errors.title" class="text-red-600 text-sm">{{ form.errors.title }}</div>
 
-                <textarea v-model="form.description" placeholder="Description"
-                    class="w-full border rounded px-3 py-2"></textarea>
+                <textarea v-model="form.description" placeholder="Description" class="w-full border rounded px-3 py-2"></textarea>
                 <div v-if="form.errors.description" class="text-red-600 text-sm">{{ form.errors.description }}</div>
 
-                <input v-model="form.speaker" type="text" placeholder="Speaker"
-                    class="w-full border rounded px-3 py-2" />
+                <input v-model="form.speaker" type="text" placeholder="Speaker" class="w-full border rounded px-3 py-2" />
                 <div v-if="form.errors.speaker" class="text-red-600 text-sm">{{ form.errors.speaker }}</div>
 
                 <input v-model="form.venue" type="text" placeholder="Venue" class="w-full border rounded px-3 py-2" />
@@ -50,8 +47,7 @@ const submit = () => {
                     <div>
                         <label class="block mb-1">Event Date</label>
                         <input v-model="form.event_date" type="date" class="w-full border rounded px-3 py-2" />
-                        <div v-if="form.errors.event_date" class="text-red-600 text-sm">{{ form.errors.event_date }}
-                        </div>
+                        <div v-if="form.errors.event_date" class="text-red-600 text-sm">{{ form.errors.event_date }}</div>
                     </div>
 
                     <div>
@@ -65,8 +61,7 @@ const submit = () => {
                     <div>
                         <label class="block mb-1">Start Time</label>
                         <input v-model="form.start_time" type="time" class="w-full border rounded px-3 py-2" />
-                        <div v-if="form.errors.start_time" class="text-red-600 text-sm">{{ form.errors.start_time }}
-                        </div>
+                        <div v-if="form.errors.start_time" class="text-red-600 text-sm">{{ form.errors.start_time }}</div>
                     </div>
 
                     <div>
@@ -79,15 +74,25 @@ const submit = () => {
                 <select v-model="form.status" class="w-full border rounded px-3 py-2">
                     <option value="Open">Open</option>
                     <option value="Closed">Closed</option>
-                    <option value="Completed">Completed</option>
+                    <option value="Ongoing">Ongoing</option>
                 </select>
                 <div v-if="form.errors.status" class="text-red-600 text-sm">{{ form.errors.status }}</div>
 
                 <div class="flex gap-3">
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded" :disabled="form.processing">
-                        Update
+                    <button
+                        type="submit"
+                        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                        :disabled="form.processing"
+                    >
+                        {{ form.processing ? 'Updating...' : 'Update Workshop' }}
                     </button>
-                    <Link :href="route('workshops.index')" class="bg-gray-200 px-4 py-2 rounded">Cancel</Link>
+
+                    <Link
+                        :href="route('workshops.index')"
+                        class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                    >
+                        Cancel
+                    </Link>
                 </div>
             </form>
         </div>

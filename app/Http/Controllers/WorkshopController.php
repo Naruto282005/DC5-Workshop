@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Workshop;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -40,7 +40,7 @@ class WorkshopController extends Controller
 
         Workshop::create($validated);
 
-        return redirect()->route('workshops.index')->with('success', 'Workshop created successfully.');
+        return to_route('workshops.index')->with('success', 'Workshop created successfully.');
     }
 
     public function edit(Workshop $workshop): Response
@@ -66,13 +66,13 @@ class WorkshopController extends Controller
 
         $workshop->update($validated);
 
-        return redirect()->route('workshops.index')->with('success', 'Workshop updated successfully.');
+        return to_route('workshops.index')->with('success', 'Workshop updated successfully.');
     }
 
     public function destroy(Workshop $workshop): RedirectResponse
     {
         $workshop->delete();
 
-        return redirect()->route('workshops.index')->with('success', 'Workshop deleted successfully.');
+        return to_route('workshops.index')->with('success', 'Workshop deleted successfully.');
     }
 }

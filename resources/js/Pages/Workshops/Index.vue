@@ -1,12 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import { Head, Link, router, usePage } from '@inertiajs/vue3'
+import { Head, Link, router } from '@inertiajs/vue3'
 
 defineProps({
     workshops: Array,
 })
-
-const page = usePage()
 
 const destroyWorkshop = (id) => {
     if (confirm('Are you sure you want to delete this workshop?')) {
@@ -16,18 +14,19 @@ const destroyWorkshop = (id) => {
 </script>
 
 <template>
-
     <Head title="Workshops" />
 
     <AuthenticatedLayout>
         <div class="bg-white rounded-lg shadow p-6">
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-2xl font-bold">Workshops</h1>
-                <Link :href="route('workshops.create')" class="bg-blue-600 text-white px-4 py-2 rounded">Add Workshop
+
+                <Link :href="route('workshops.create')" class="bg-blue-600 text-white px-4 py-2 rounded">
+                    Add Workshop
                 </Link>
             </div>
 
-            <div v-if="$page.props.flash && $page.props.flash.success">
+            <div v-if="$page.props.flash && $page.props.flash.success" class="mb-4 text-green-600 font-medium">
                 {{ $page.props.flash.success }}
             </div>
 
@@ -53,8 +52,17 @@ const destroyWorkshop = (id) => {
                             <td class="border px-4 py-2">{{ workshop.capacity }}</td>
                             <td class="border px-4 py-2">{{ workshop.status }}</td>
                             <td class="border px-4 py-2 space-x-2">
-                                <Link :href="route('workshops.edit', workshop.id)" class="text-blue-600">Edit</Link>
-                                <button @click="destroyWorkshop(workshop.id)" class="text-red-600">Delete</button>
+                                <Link :href="route('workshops.edit', workshop.id)" class="text-blue-600">
+                                    Edit
+                                </Link>
+
+                                <button
+                                    type="button"
+                                    @click="destroyWorkshop(workshop.id)"
+                                    class="text-red-600"
+                                >
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     </tbody>
